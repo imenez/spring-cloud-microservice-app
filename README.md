@@ -19,3 +19,10 @@ for ticket
 }
 
 for account
+{
+	"username" : "test3",
+    "name" : "jack",
+    "surname" : "russel",
+    "email" : "xx@yy.com",
+    "birthDate" : "1999-01-01"
+}
