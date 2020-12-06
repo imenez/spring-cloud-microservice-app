@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.imenez</groupId>
+    <artifactId>microservice-app</artifactId>
+    <packaging>pom</packaging>
+    <version>10.0.1</version>
+
+    <modules>
+        <module>account-service</module>
+        <module>service-parent</module>
+        <module>config-server</module>
+        <module>eureka-server</module>
+        <module>ticket-service</module>
+        <module>service-common</module>
+        <module>notification-service</module>
+        <module>zipkin-server</module>
+        <module>hystrix-dashboard</module>
+        <module>gateway-server</module>
+        <module>admin-server</module>
+    </modules>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.0.RELEASE</version>
+        <relativePath/>
+    </parent>
+
+    <name>Spring Cloud Microservice App Template</name>
+    <description>Spring Cloud Microservice App Template</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <spring.cloud.version>Hoxton.RELEASE</spring.cloud.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.yml</include>
+                    <include>**/*.json</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+            </plugin>
+        </plugins>
+    </build>
+
+
+
+</project>

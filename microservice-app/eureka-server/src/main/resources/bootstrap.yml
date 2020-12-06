@@ -1,0 +1,12 @@
+server:
+  port: 8500
+
+spring:
+  application:
+    name: eureka-service  
+
+  cloud:
+    config:
+      profile: native
+      uri: ${CONFIG_SERVER_URL:http://localhost:8888}
+

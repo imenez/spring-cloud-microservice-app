@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  cassandra:
+    image: cassandra
+    ports:
+      - '9042:9042'
+
+
+  mysql:
+    image: mysql
+    restart: always
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: microservice-app
+
+  elasticsearch:
+    image: elasticsearch:6.8.5
+    ports:
+        - '9200:9200'
+        - '9300:9300'
+    environment:
+      discovery.type: single-node
+      http.host: 0.0.0.0
+      transport.host: 127.0.0.1
+    networks:
+      elk: null
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: .
+        target: /usr/share/elastichsearch/data:rw
+
+  msrabbitmq:
+    image: rabbitmq:3.7-management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=imenez
+      - RABBITMQ_DEFAULT_PASS=imenez
+
+
+  kibana:
+    image: kibana:6.8.5
+    environment:
+      ELASTICSEARCH_USERNAME: imenez
+      ELASTICSEARCH_PASSWORD: imenez
+      SERVER_NAME: kibana.example.org
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+    networks:
+      elk: null
+
+
+volumes:
+  elasticsearch:
+    driver: local
+networks:
+  elk:
